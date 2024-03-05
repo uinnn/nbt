@@ -1,0 +1,142 @@
+package dream.nbt.primitives
+
+import dream.nbt.*
+import java.io.*
+import kotlin.experimental.*
+
+/**
+ * Value class representing a boolean value as an NBT tag.
+ *
+ * @param raw The raw byte value representing the boolean.
+ */
+@JvmInline
+value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
+  
+  override val genericValue get() = raw
+  
+  /**
+   * Gets the NBT tag type for BooleanTag.
+   */
+  override val type get() = Type
+  
+  /**
+   * Gets the boolean value represented by this tag.
+   */
+  val value get() = raw != 0.toByte()
+  
+  /**
+   * Constructor to create a BooleanTag from a boolean value.
+   *
+   * @param value The boolean value.
+   */
+  constructor(value: Boolean) : this(if (value) 1 else 0)
+  
+  /**
+   * Writes the boolean tag data to the specified [DataOutput].
+   *
+   * @param data The data output stream.
+   */
+  override fun write(data: DataOutput) {
+    data.writeByte(toInt())
+  }
+  
+  /**
+   * Gets the value of the specified bit in the boolean tag.
+   *
+   * @param bit The bit index.
+   * @return True if the bit is set, false otherwise.
+   */
+  operator fun get(bit: Int) = (raw and mask(bit)) != 0.toByte()
+  
+  /**
+   * Sets the value of the specified bit in the boolean tag.
+   *
+   * @param bit The bit index.
+   * @param value The boolean value to set.
+   * @return A new BooleanTag with the updated value.
+   */
+  fun set(bit: Int, value: Boolean) =
+    BooleanTag(if (value) raw or mask(bit) else raw and mask(bit).inv())
+  
+  /**
+   * Converts the boolean tag to a Number.
+   */
+  override fun toNumber(): Number = raw
+  
+  /**
+   * Converts the boolean tag to a Byte.
+   */
+  override fun toByte(): Byte = raw
+  
+  /**
+   * Converts the boolean tag to a Short.
+   */
+  override fun toShort(): Short = raw.toShort()
+  
+  /**
+   * Converts the boolean tag to an Int.
+   */
+  override fun toInt(): Int = raw.toInt()
+  
+  /**
+   * Converts the boolean tag to a Long.
+   */
+  override fun toLong(): Long = raw.toLong()
+  
+  /**
+   * Converts the boolean tag to a Float.
+   */
+  override fun toFloat(): Float = raw.toFloat()
+  
+  /**
+   * Converts the boolean tag to a Double.
+   */
+  override fun toDouble(): Double = raw.toDouble()
+  
+  /**
+   * Creates a copy of the boolean tag.
+   */
+  override fun copy() = BooleanTag(raw)
+  
+  /**
+   * Returns a string representation of the boolean tag.
+   */
+  override fun toString() = "${raw}b"
+  
+  /**
+   * Compares this boolean tag to another for ordering.
+   */
+  override fun compareTo(other: BooleanTag) = raw.compareTo(other.raw)
+  
+  /**
+   * Generates a bitmask for the specified bit.
+   *
+   * @param v The bit index.
+   * @return The bitmask for the specified bit.
+   */
+  private fun mask(v: Int): Byte = (1 shl v).toByte()
+  
+  /**
+   * TagType for BooleanTag.
+   */
+  object Type : TagType<BooleanTag>() {
+    /**
+     * Loads a BooleanTag from the specified [DataInput].
+     *
+     * @param data The data input stream.
+     * @return The loaded BooleanTag.
+     */
+    override fun load(data: DataInput): BooleanTag {
+      return BooleanTag(data.readByte())
+    }
+  }
+  
+  /**
+   * Static companion object providing predefined BooleanTag instances for true and false values.
+   */
+  companion object {
+    val TRUE = BooleanTag(true)
+    val FALSE = BooleanTag(false)
+  }
+}
+
