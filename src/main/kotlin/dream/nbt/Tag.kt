@@ -30,13 +30,6 @@ interface Tag {
    * @return A new instance of the tag with the same type and data.
    */
   fun copy(): Tag
-  
-  /**
-   * Converts the tag to its string representation.
-   *
-   * @return The string representation of the tag.
-   */
-  override fun toString(): String
 }
 
 /**

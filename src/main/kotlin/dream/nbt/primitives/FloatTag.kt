@@ -92,3 +92,5 @@ value class FloatTag(val value: Float = 0f) : NumberTag, Comparable<FloatTag> {
     }
   }
 }
+
+fun Float.toTag() = FloatTag(this)

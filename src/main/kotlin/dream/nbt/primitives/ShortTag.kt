@@ -92,3 +92,5 @@ value class ShortTag(val value: Short = 0) : NumberTag, Comparable<ShortTag> {
     }
   }
 }
+
+fun Short.toTag() = ShortTag(this)

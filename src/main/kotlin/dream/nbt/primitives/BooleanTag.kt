@@ -32,6 +32,33 @@ value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
   constructor(value: Boolean) : this(if (value) 1 else 0)
   
   /**
+   * Constructor to create a BooleanTag from multiple boolean values.
+   */
+  constructor(value1: Boolean, value2: Boolean) : this(0) {
+    set(1, value1)
+    set(2, value2)
+  }
+  
+  /**
+   * Constructor to create a BooleanTag from multiple boolean values.
+   */
+  constructor(value1: Boolean, value2: Boolean, value3: Boolean) : this(0) {
+    set(1, value1)
+    set(2, value2)
+    set(3, value3)
+  }
+  
+  /**
+   * Constructor to create a BooleanTag from multiple boolean values.
+   */
+  constructor(vararg values: Boolean) : this(0) {
+    for (i in 0 until 8) {
+      if (i >= values.size) break
+      set(i, values[i])
+    }
+  }
+  
+  /**
    * Writes the boolean tag data to the specified [DataOutput].
    *
    * @param data The data output stream.
@@ -140,3 +167,5 @@ value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
   }
 }
 
+
+fun Boolean.toTag() = BooleanTag(this)

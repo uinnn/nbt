@@ -79,3 +79,5 @@ value class StringTag(val value: String = "") : Tag, CharSequence, Comparable<St
     }
   }
 }
+
+fun String.toTag() = StringTag(this)

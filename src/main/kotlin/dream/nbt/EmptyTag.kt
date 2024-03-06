@@ -8,6 +8,8 @@ import java.io.*
  */
 object EmptyTag : Tag {
   
+  override val genericValue get() = Unit
+  
   /**
    * Gets the type of the empty tag.
    */
@@ -50,3 +52,6 @@ object EmptyTag : Tag {
     }
   }
 }
+
+
+

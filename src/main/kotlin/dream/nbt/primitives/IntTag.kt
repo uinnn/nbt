@@ -92,3 +92,5 @@ value class IntTag(val value: Int = 0) : NumberTag, Comparable<IntTag> {
     }
   }
 }
+
+fun Int.toTag() = IntTag(this)

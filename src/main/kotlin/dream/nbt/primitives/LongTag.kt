@@ -92,3 +92,5 @@ value class LongTag(val value: Long = 0) : NumberTag, Comparable<LongTag> {
     }
   }
 }
+
+fun Long.toTag() = LongTag(this)

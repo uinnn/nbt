@@ -4,6 +4,7 @@ package dream.nbt.collections
 
 import dream.nbt.*
 import dream.nbt.arrays.*
+import dream.nbt.complex.*
 import dream.nbt.primitives.*
 import it.unimi.dsi.fastutil.booleans.*
 import it.unimi.dsi.fastutil.bytes.*
@@ -15,6 +16,7 @@ import it.unimi.dsi.fastutil.longs.*
 import it.unimi.dsi.fastutil.objects.*
 import it.unimi.dsi.fastutil.shorts.*
 import java.io.*
+import java.util.*
 import kotlin.contracts.*
 
 /**
@@ -569,6 +571,20 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
   }
   
   /**
+   * Gets a UUID from the compound tag.
+   */
+  fun uuid(key: String, default: UUID? = null): UUID {
+    return (getTagOrNull<UUIDTag>(key) ?: return default ?: UUID(0, 0)).value
+  }
+  
+  /**
+   * Gets a UUID from the compound tag or returns null if not found.
+   */
+  fun uuidOrNull(key: String): UUID? {
+    return (getTagOrNull<UUIDTag>(key) ?: return null).value
+  }
+  
+  /**
    * Merges the values from another compound tag into this compound tag.
    *
    * @param tag The compound tag to merge.
@@ -590,140 +606,151 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
   }
   
   /**
-   * Sets a boolean value at the specified key using a ByteTag.
-   *
-   * @param key The key.
-   * @param value The boolean value.
+   * Sets a boolean value at the specified key using a BooleanTag.
    */
-  operator fun set(key: String, value: Boolean) = put(key, ByteTag(value))
+  operator fun set(key: String, value: Boolean) {
+    put(key, BooleanTag(value))
+  }
+  
+  /**
+   * Sets a pair of boolean values at the specified key using a BooleanTag.
+   */
+  operator fun set(key: String, value1: Boolean, value2: Boolean) {
+    put(key, BooleanTag(value1, value2))
+  }
+  
+  /**
+   * Sets a triple of boolean values at the specified key using a BooleanTag.
+   */
+  operator fun set(key: String, value1: Boolean, value2: Boolean, value3: Boolean) {
+    put(key, BooleanTag(value1, value2, value3))
+  }
+  
+  /**
+   * Sets multiple boolean values at the specified key using a BooleanTag.
+   */
+  fun set(key: String, vararg values: Boolean) {
+    put(key, BooleanTag(*values))
+  }
   
   /**
    * Sets a byte value at the specified key using a ByteTag.
-   *
-   * @param key The key.
-   * @param value The byte value.
    */
-  operator fun set(key: String, value: Byte) = put(key, ByteTag(value))
+  operator fun set(key: String, value: Byte) {
+    put(key, ByteTag(value))
+  }
   
   /**
    * Sets a char value at the specified key using a CharTag.
-   *
-   * @param key The key.
-   * @param value The char value.
    */
-  operator fun set(key: String, value: Char) = put(key, CharTag(value))
+  operator fun set(key: String, value: Char) {
+    put(key, CharTag(value))
+  }
   
   /**
    * Sets a short value at the specified key using a ShortTag.
-   *
-   * @param key The key.
-   * @param value The short value.
    */
-  operator fun set(key: String, value: Short) = put(key, ShortTag(value))
+  operator fun set(key: String, value: Short) {
+    put(key, ShortTag(value))
+  }
   
   /**
    * Sets an int value at the specified key using an IntTag.
-   *
-   * @param key The key.
-   * @param value The int value.
    */
-  operator fun set(key: String, value: Int) = put(key, IntTag(value))
+  operator fun set(key: String, value: Int) {
+    put(key, IntTag(value))
+  }
   
   /**
    * Sets a long value at the specified key using a LongTag.
-   *
-   * @param key The key.
-   * @param value The long value.
    */
-  operator fun set(key: String, value: Long) = put(key, LongTag(value))
+  operator fun set(key: String, value: Long) {
+    put(key, LongTag(value))
+  }
   
   /**
    * Sets a float value at the specified key using a FloatTag.
-   *
-   * @param key The key.
-   * @param value The float value.
    */
-  operator fun set(key: String, value: Float) = put(key, FloatTag(value))
+  operator fun set(key: String, value: Float) {
+    put(key, FloatTag(value))
+  }
   
   /**
    * Sets a double value at the specified key using a DoubleTag.
-   *
-   * @param key The key.
-   * @param value The double value.
    */
-  operator fun set(key: String, value: Double) = put(key, DoubleTag(value))
+  operator fun set(key: String, value: Double) {
+    put(key, DoubleTag(value))
+  }
   
   /**
    * Sets a string value at the specified key using a StringTag.
-   *
-   * @param key The key.
-   * @param value The string value.
    */
-  operator fun set(key: String, value: String) = put(key, StringTag(value))
+  operator fun set(key: String, value: String) {
+    put(key, StringTag(value))
+  }
   
   /**
    * Sets a boolean array value at the specified key using a PackedBooleanArrayTag.
-   *
-   * @param key The key.
-   * @param value The boolean array value.
    */
-  operator fun set(key: String, value: BooleanArray) = put(key, PackedBooleanArrayTag(value))
+  operator fun set(key: String, value: BooleanArray) {
+    put(key, PackedBooleanArrayTag(value))
+  }
   
   /**
    * Sets a byte array value at the specified key using a ByteArrayTag.
-   *
-   * @param key The key.
-   * @param value The byte array value.
    */
-  operator fun set(key: String, value: ByteArray) = put(key, ByteArrayTag(value))
+  operator fun set(key: String, value: ByteArray) {
+    put(key, ByteArrayTag(value))
+  }
   
   /**
    * Sets a char array value at the specified key using a CharArrayTag.
-   *
-   * @param key The key.
-   * @param value The char array value.
    */
-  operator fun set(key: String, value: CharArray) = put(key, CharArrayTag(value))
+  operator fun set(key: String, value: CharArray) {
+    put(key, CharArrayTag(value))
+  }
   
   /**
    * Sets a short array value at the specified key using a ShortArrayTag.
-   *
-   * @param key The key.
-   * @param value The short array value.
    */
-  operator fun set(key: String, value: ShortArray) = put(key, ShortArrayTag(value))
+  operator fun set(key: String, value: ShortArray) {
+    put(key, ShortArrayTag(value))
+  }
   
   /**
    * Sets an int array value at the specified key using an IntArrayTag.
-   *
-   * @param key The key.
-   * @param value The int array value.
    */
-  operator fun set(key: String, value: IntArray) = put(key, IntArrayTag(value))
+  operator fun set(key: String, value: IntArray) {
+    put(key, IntArrayTag(value))
+  }
   
   /**
    * Sets a long array value at the specified key using a LongArrayTag.
-   *
-   * @param key The key.
-   * @param value The long array value.
    */
-  operator fun set(key: String, value: LongArray) = put(key, LongArrayTag(value))
+  operator fun set(key: String, value: LongArray) {
+    put(key, LongArrayTag(value))
+  }
   
   /**
    * Sets a float array value at the specified key using a FloatArrayTag.
-   *
-   * @param key The key.
-   * @param value The float array value.
    */
-  operator fun set(key: String, value: FloatArray) = put(key, FloatArrayTag(value))
+  operator fun set(key: String, value: FloatArray) {
+    put(key, FloatArrayTag(value))
+  }
   
   /**
    * Sets a double array value at the specified key using a DoubleArrayTag.
-   *
-   * @param key The key.
-   * @param value The double array value.
    */
-  operator fun set(key: String, value: DoubleArray) = put(key, DoubleArrayTag(value))
+  operator fun set(key: String, value: DoubleArray) {
+    put(key, DoubleArrayTag(value))
+  }
+  
+  /**
+   * Sets a UUID value at the specified key using a UUIDTag.
+   */
+  operator fun set(key: String, value: UUID) {
+    put(key, UUIDTag(value))
+  }
   
   /**
    * Tag type for CompoundTag.

@@ -92,3 +92,5 @@ value class CharTag(val value: Char) : NumberTag, Comparable<CharTag> {
     }
   }
 }
+
+fun Char.toTag() = CharTag(this)

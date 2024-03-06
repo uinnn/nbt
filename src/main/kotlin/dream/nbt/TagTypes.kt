@@ -2,6 +2,7 @@ package dream.nbt
 
 import dream.nbt.arrays.*
 import dream.nbt.collections.*
+import dream.nbt.complex.*
 import dream.nbt.primitives.*
 import it.unimi.dsi.fastutil.bytes.*
 
@@ -27,6 +28,7 @@ typealias DoubleArrayType = DoubleArrayTag.Type
 typealias CharArrayType = CharArrayTag.Type
 typealias BooleanArrayType = BooleanArrayTag.Type
 typealias PackedBooleanArrayType = PackedBooleanArrayTag.Type
+typealias UUIDType = UUIDTag.Type
 
 /**
  * The `TagTypes` object represents a registry for various tag types in Kotlin. It provides methods for
@@ -119,5 +121,6 @@ object TagTypes {
     registerType(CharArrayType)
     registerType(BooleanArrayType)
     registerType(PackedBooleanArrayType)
+    registerType(UUIDType)
   }
 }

@@ -92,3 +92,5 @@ value class DoubleTag(val value: Double = 0.0) : NumberTag, Comparable<DoubleTag
     }
   }
 }
+
+fun Double.toTag() = DoubleTag(this)

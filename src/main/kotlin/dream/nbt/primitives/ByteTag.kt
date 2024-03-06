@@ -99,3 +99,5 @@ value class ByteTag(val value: Byte = 0) : NumberTag, Comparable<ByteTag> {
     }
   }
 }
+
+fun Byte.toTag() = ByteTag(this)
