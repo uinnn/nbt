@@ -14,6 +14,10 @@ The following presents an implementation of Named Binary Tag (NBT), drawing insp
   
 - **Compact Design**: A highly condensed structure, facilitating streamlined storage.
 
+## Future features
+- **Interoperability**: Ability to interoperate with this NBT implementation to Minecraft NBT
+- **Multiple Compression**: Various compressions formats. For now, only GZIP is supported
+
 ## Minecraft NBT Overview
 
 The NBT system within Minecraft's is characterized by its simplicity, albeit lacking in optimization. Minecraft offers various NBT types, each serving distinct purposes:
