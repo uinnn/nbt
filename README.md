@@ -17,24 +17,27 @@ The following presents an implementation of Named Binary Tag (NBT), drawing insp
 ## Future features
 - **Interoperability**: Ability to interoperate with this NBT implementation to Minecraft NBT
 - **Multiple Compression**: Various compressions formats. For now, only GZIP is supported
+- **Bits Types**: New types for other bits (24, 40, 48, 56)
+- **Conversor to Bytes**: Allow serializing/deserializing types directly to ByteArray easily
+- **Kotlin Serialization**: Implementation of Kotlinx Serialization as NBT
 
 ## Minecraft NBT Overview
 
 The NBT system within Minecraft's is characterized by its simplicity, albeit lacking in optimization. Minecraft offers various NBT types, each serving distinct purposes:
 
-1. **Empty (NBT TAG END)**
-2. **Byte (NBT TAG BYTE)**
-3. **Short (NBT TAG SHORT)**
-4. **Int (NBT TAG INT)**
-5. **Long (NBT TAG LONG)**
-6. **Float (NBT TAG FLOAT)**
-7. **Double (NBT TAG DOUBLE)**
-8. **ByteArray (NBT TAG BYTEARRAY)**
-9. **String (NBT TAG STRING)**
-10. **List (NBT TAG LIST)**
-11. **Compound (NBT TAG COMPOUND)**
-12. **IntArray (NBT TAG INTARRAY)**
-13. **LongArray (NBT TAG LONGARRAY) - Introduced in version 1.13+**
+1. **Empty**
+2. **Byte**
+3. **Short**
+4. **Int**
+5. **Long**
+6. **Float**
+7. **Double**
+8. **ByteArray**
+9. **String**
+10. **List**
+11. **Compound**
+12. **IntArray**
+13. **LongArray** - Introduced in version 1.13+
 
 ## Extended NBT Types
 
