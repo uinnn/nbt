@@ -45,7 +45,7 @@ value class ByteArrayTag(val value: ByteArray) : ArrayTag, ByteIterable {
   /**
    * Creates a copy of the byte array tag.
    */
-  override fun copy() = ByteArrayTag(value.clone())
+  override fun copy() = ByteArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the byte array tag.

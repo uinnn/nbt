@@ -65,7 +65,7 @@ value class FloatTag(val value: Float = 0f) : NumberTag, Comparable<FloatTag> {
   /**
    * Creates a copy of the float tag.
    */
-  override fun copy() = FloatTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the float tag.

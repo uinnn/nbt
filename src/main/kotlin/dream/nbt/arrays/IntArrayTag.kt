@@ -45,7 +45,7 @@ value class IntArrayTag(val value: IntArray) : ArrayTag, IntIterable {
   /**
    * Creates a copy of the int array tag.
    */
-  override fun copy() = IntArrayTag(value.clone())
+  override fun copy() = IntArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the int array tag.

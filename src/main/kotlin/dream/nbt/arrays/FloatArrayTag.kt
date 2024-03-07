@@ -45,7 +45,7 @@ value class FloatArrayTag(val value: FloatArray) : ArrayTag, FloatIterable {
   /**
    * Creates a copy of the float array tag.
    */
-  override fun copy() = FloatArrayTag(value.clone())
+  override fun copy() = FloatArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the float array tag.

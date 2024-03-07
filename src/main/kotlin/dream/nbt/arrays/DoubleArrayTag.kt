@@ -45,7 +45,7 @@ value class DoubleArrayTag(val value: DoubleArray) : ArrayTag, DoubleIterable {
   /**
    * Creates a copy of the double array tag.
    */
-  override fun copy() = DoubleArrayTag(value.clone())
+  override fun copy() = DoubleArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the double array tag.

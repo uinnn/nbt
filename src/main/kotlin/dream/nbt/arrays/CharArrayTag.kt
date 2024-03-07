@@ -45,7 +45,7 @@ value class CharArrayTag(val value: CharArray) : ArrayTag, CharIterable {
   /**
    * Creates a copy of the char array tag.
    */
-  override fun copy() = CharArrayTag(value.clone())
+  override fun copy() = CharArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the char array tag.

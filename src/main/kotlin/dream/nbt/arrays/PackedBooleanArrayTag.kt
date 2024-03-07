@@ -46,7 +46,7 @@ value class PackedBooleanArrayTag(val value: BooleanArray) : ArrayTag, BooleanIt
   /**
    * Creates a copy of the packed boolean array tag.
    */
-  override fun copy() = BooleanArrayTag(value.clone())
+  override fun copy() = BooleanArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the packed boolean array tag.

@@ -52,7 +52,7 @@ value class StringTag(val value: String = "") : Tag, CharSequence, Comparable<St
   /**
    * Creates a copy of the string tag.
    */
-  override fun copy() = StringTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the string tag.

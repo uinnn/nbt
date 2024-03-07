@@ -65,7 +65,7 @@ value class ShortTag(val value: Short = 0) : NumberTag, Comparable<ShortTag> {
   /**
    * Creates a copy of the short tag.
    */
-  override fun copy() = ShortTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the short tag.

@@ -1,5 +1,7 @@
 package dream.nbt
 
+import dream.nbt.io.*
+import it.unimi.dsi.fastutil.io.*
 import java.io.*
 
 /**
@@ -47,3 +49,21 @@ inline val Tag.isEnd: Boolean
  */
 inline val Tag.id: Int
   get() = type.id.toInt()
+
+/**
+ * Extension function for converting a Tag to a ByteArray.
+ * @return The ByteArray representation of the Tag.
+ */
+fun Tag.toByteArray(): ByteArray {
+  val stream = FastByteArrayOutputStream()
+  TagIO.write(stream, this)
+  return stream.array
+}
+
+/**
+ * Extension function for decoding a Tag from a ByteArray.
+ * @return The decoded Tag from the ByteArray.
+ */
+fun ByteArray.decodeTag(): Tag {
+  return TagIO.read(FastByteArrayInputStream(this))
+}

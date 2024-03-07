@@ -123,7 +123,7 @@ value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
   /**
    * Creates a copy of the boolean tag.
    */
-  override fun copy() = BooleanTag(raw)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the boolean tag.

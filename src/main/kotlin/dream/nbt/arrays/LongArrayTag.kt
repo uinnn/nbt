@@ -45,7 +45,7 @@ value class LongArrayTag(val value: LongArray) : ArrayTag, LongIterable {
   /**
    * Creates a copy of the long array tag.
    */
-  override fun copy() = LongArrayTag(value.clone())
+  override fun copy() = LongArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the long array tag.

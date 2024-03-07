@@ -65,7 +65,7 @@ value class LongTag(val value: Long = 0) : NumberTag, Comparable<LongTag> {
   /**
    * Creates a copy of the long tag.
    */
-  override fun copy() = LongTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the long tag.

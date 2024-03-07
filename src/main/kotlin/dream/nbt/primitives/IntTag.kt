@@ -65,7 +65,7 @@ value class IntTag(val value: Int = 0) : NumberTag, Comparable<IntTag> {
   /**
    * Creates a copy of the integer tag.
    */
-  override fun copy() = IntTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the integer tag.

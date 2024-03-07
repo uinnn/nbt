@@ -72,7 +72,7 @@ value class ByteTag(val value: Byte = 0) : NumberTag, Comparable<ByteTag> {
   /**
    * Creates a copy of the byte tag.
    */
-  override fun copy() = ByteTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the byte tag.

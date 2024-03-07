@@ -1,6 +1,7 @@
 package dream.nbt.collections
 
 import dream.nbt.*
+import dream.nbt.primitives.*
 import dream.nbt.util.*
 import it.unimi.dsi.fastutil.objects.*
 import java.io.*
@@ -52,7 +53,7 @@ value class ListTag<T : Tag>(val value: ObjectArrayList<T>) : MutableList<T> by 
   /**
    * Creates a copy of the list tag.
    */
-  override fun copy(): ListTag<T> = ListTag(ObjectArrayList(value))
+  override fun copy(): ListTag<T> = ListTag(value.clone())
   
   /**
    * Returns a string representation of the list tag.
@@ -100,6 +101,15 @@ fun <T : Tag> tagListOf() = ListTag<T>()
  * @return The ListTag containing the specified values.
  */
 fun tagListOf(vararg values: Tag) = ListTag(ObjectArrayList(values))
+fun tagListOf(vararg values: Byte) = values.wrapTag()
+fun tagListOf(vararg values: Short) = values.wrapTag()
+fun tagListOf(vararg values: Boolean) = values.wrapTag()
+fun tagListOf(vararg values: Char) = values.wrapTag()
+fun tagListOf(vararg values: Double) = values.wrapTag()
+fun tagListOf(vararg values: Float) = values.wrapTag()
+fun tagListOf(vararg values: Int) = values.wrapTag()
+fun tagListOf(vararg values: Long) = values.wrapTag()
+fun tagListOf(vararg values: String) = values.wrapTag()
 
 /**
  * Inline function to create a ListTag using a builder-style DSL.
@@ -113,3 +123,53 @@ inline fun <T : Tag> tagList(builder: ListTag<T>.() -> Unit): ListTag<T> {
   contract { callsInPlace(builder, InvocationKind.EXACTLY_ONCE) }
   return ListTag<T>().apply(builder)
 }
+
+fun ListTag<BooleanTag>.value(index: Int) = get(index).value
+fun ListTag<ByteTag>.value(index: Int) = get(index).value
+fun ListTag<ShortTag>.value(index: Int) = get(index).value
+fun ListTag<CharTag>.value(index: Int) = get(index).value
+fun ListTag<DoubleTag>.value(index: Int) = get(index).value
+fun ListTag<FloatTag>.value(index: Int) = get(index).value
+fun ListTag<IntTag>.value(index: Int) = get(index).value
+fun ListTag<LongTag>.value(index: Int) = get(index).value
+fun ListTag<StringTag>.value(index: Int) = get(index).value
+
+fun ListTag<BooleanTag>.add(value: Boolean) = add(value.toTag())
+fun ListTag<ByteTag>.add(value: Byte) = add(value.toTag())
+fun ListTag<ShortTag>.add(value: Short) = add(value.toTag())
+fun ListTag<CharTag>.add(value: Char) = add(value.toTag())
+fun ListTag<DoubleTag>.add(value: Double) = add(value.toTag())
+fun ListTag<FloatTag>.add(value: Float) = add(value.toTag())
+fun ListTag<IntTag>.add(value: Int) = add(value.toTag())
+fun ListTag<LongTag>.add(value: Long) = add(value.toTag())
+fun ListTag<StringTag>.add(value: String) = add(value.toTag())
+
+fun Iterable<Tag>.wrapTag() = toCollection(ListTag())
+fun Iterable<Boolean>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<Byte>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<Short>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<Char>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<Double>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<Float>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<Int>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<Long>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Iterable<String>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+
+fun Array<Tag>.wrapTag() = toCollection(ListTag())
+fun BooleanArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun ByteArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun ShortArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun CharArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun DoubleArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun FloatArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun IntArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun LongArray.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Boolean>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Byte>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Short>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Char>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Double>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Float>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Int>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<Long>.wrapTag() = mapTo(ListTag()) { it.toTag() }
+fun Array<out String>.wrapTag() = mapTo(ListTag()) { it.toTag() }

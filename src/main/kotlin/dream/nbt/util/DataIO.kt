@@ -2,6 +2,70 @@ package dream.nbt.util
 
 import java.io.*
 
+fun DataOutput.write24Bits(value: Int) {
+  writeByte((value shr 16) and 0xFF)
+  writeByte((value shr 8) and 0xFF)
+  writeByte(value and 0xFF)
+}
+
+fun DataInput.read24Bits(): Int {
+  return (readByte().toInt() shl 16) or (readByte().toInt() shl 8) or readByte().toInt()
+}
+
+fun DataOutput.write40Bits(value: Long) {
+  writeByte(((value shr 32) and 0xFF).toInt())
+  writeByte(((value shr 24) and 0xFF).toInt())
+  writeByte(((value shr 16) and 0xFF).toInt())
+  writeByte(((value shr 8) and 0xFF).toInt())
+  writeByte((value and 0xFF).toInt())
+}
+
+fun DataInput.read40Bits(): Long {
+  return (readByte().toLong() shl 32) or
+    (readByte().toLong() shl 24) or
+    (readByte().toLong() shl 16) or
+    (readByte().toLong() shl 8) or
+    readByte().toLong()
+}
+
+fun DataOutput.write48Bits(value: Long) {
+  writeByte(((value shr 40) and 0xFF).toInt())
+  writeByte(((value shr 32) and 0xFF).toInt())
+  writeByte(((value shr 24) and 0xFF).toInt())
+  writeByte(((value shr 16) and 0xFF).toInt())
+  writeByte(((value shr 8) and 0xFF).toInt())
+  writeByte((value and 0xFF).toInt())
+}
+
+fun DataInput.read48Bits(): Long {
+  return (readByte().toLong() shl 40) or
+    (readByte().toLong() shl 32) or
+    (readByte().toLong() shl 24) or
+    (readByte().toLong() shl 16) or
+    (readByte().toLong() shl 8) or
+    readByte().toLong()
+}
+
+fun DataOutput.write56Bits(value: Long) {
+  writeByte(((value shr 48) and 0xFF).toInt())
+  writeByte(((value shr 40) and 0xFF).toInt())
+  writeByte(((value shr 32) and 0xFF).toInt())
+  writeByte(((value shr 24) and 0xFF).toInt())
+  writeByte(((value shr 16) and 0xFF).toInt())
+  writeByte(((value shr 8) and 0xFF).toInt())
+  writeByte((value and 0xFF).toInt())
+}
+
+fun DataInput.read56Bits(): Long {
+  return (readByte().toLong() shl 48) or
+    (readByte().toLong() shl 40) or
+    (readByte().toLong() shl 32) or
+    (readByte().toLong() shl 24) or
+    (readByte().toLong() shl 16) or
+    (readByte().toLong() shl 8) or
+    readByte().toLong()
+}
+
 /**
  * Writes a variable-length integer to the specified [DataOutput].
  *

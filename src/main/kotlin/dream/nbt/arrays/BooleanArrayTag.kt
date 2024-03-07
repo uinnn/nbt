@@ -46,7 +46,7 @@ value class BooleanArrayTag(val value: BooleanArray) : ArrayTag, BooleanIterable
   /**
    * Creates a copy of the boolean array tag.
    */
-  override fun copy() = BooleanArrayTag(value.clone())
+  override fun copy() = BooleanArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the boolean array tag.

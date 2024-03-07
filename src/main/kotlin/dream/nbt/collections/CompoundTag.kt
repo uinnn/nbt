@@ -56,7 +56,9 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
    * @param data The data output stream.
    */
   override fun write(data: DataOutput) {
-    value.object2ObjectEntrySet().fastForEach { writeEntry(it.key, it.value, data) }
+    for (entry in value) {
+      writeEntry(entry.key, entry.value, data)
+    }
     data.writeByte(0) // end
   }
   

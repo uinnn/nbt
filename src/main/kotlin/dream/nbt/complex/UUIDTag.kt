@@ -32,7 +32,7 @@ value class UUIDTag(val value: UUID) : Tag, Comparable<UUIDTag> {
    * Creates a copy of the UUIDTag.
    * @return The copied UUIDTag.
    */
-  override fun copy(): UUIDTag = UUIDTag(value)
+  override fun copy() = this
   
   /**
    * Gets the string representation of the UUIDTag.

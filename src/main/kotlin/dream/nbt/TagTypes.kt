@@ -29,6 +29,10 @@ typealias CharArrayType = CharArrayTag.Type
 typealias BooleanArrayType = BooleanArrayTag.Type
 typealias PackedBooleanArrayType = PackedBooleanArrayTag.Type
 typealias UUIDType = UUIDTag.Type
+typealias Bit24Type = Bit24Tag.Type
+typealias Bit40Type = Bit40Tag.Type
+typealias Bit48Type = Bit48Tag.Type
+typealias Bit56Type = Bit56Tag.Type
 
 /**
  * The `TagTypes` object represents a registry for various tag types in Kotlin. It provides methods for
@@ -122,5 +126,9 @@ object TagTypes {
     registerType(BooleanArrayType)
     registerType(PackedBooleanArrayType)
     registerType(UUIDType)
+    registerType(Bit24Type)
+    registerType(Bit40Type)
+    registerType(Bit48Type)
+    registerType(Bit56Type)
   }
 }

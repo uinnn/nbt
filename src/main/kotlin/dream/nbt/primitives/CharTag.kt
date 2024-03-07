@@ -65,7 +65,7 @@ value class CharTag(val value: Char) : NumberTag, Comparable<CharTag> {
   /**
    * Creates a copy of the char tag.
    */
-  override fun copy() = CharTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the char tag.

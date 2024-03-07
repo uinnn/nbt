@@ -45,7 +45,7 @@ value class ShortArrayTag(val value: ShortArray) : ArrayTag, ShortIterable {
   /**
    * Creates a copy of the short array tag.
    */
-  override fun copy() = ShortArrayTag(value.clone())
+  override fun copy() = ShortArrayTag(value.copyOf())
   
   /**
    * Gets an iterator for the short array tag.

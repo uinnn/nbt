@@ -65,7 +65,7 @@ value class DoubleTag(val value: Double = 0.0) : NumberTag, Comparable<DoubleTag
   /**
    * Creates a copy of the double tag.
    */
-  override fun copy() = DoubleTag(value)
+  override fun copy() = this
   
   /**
    * Returns a string representation of the double tag.

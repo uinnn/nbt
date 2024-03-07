@@ -52,7 +52,7 @@ value class SetTag<T : Tag>(val value: ObjectArraySet<T>) : MutableSet<T> by val
   /**
    * Creates a copy of the set tag.
    */
-  override fun copy(): SetTag<T> = SetTag(ObjectArraySet(value))
+  override fun copy(): SetTag<T> = SetTag(value.clone())
   
   /**
    * Returns a string representation of the set tag.
