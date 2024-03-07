@@ -16,9 +16,10 @@ The following presents an implementation of Named Binary Tag (NBT), drawing insp
 
 - **Multiple Compression**: Various compressions formats. GZIP, ZIP, ZLIB.
 
+   **Kotlin Serialization**: Implementation of Kotlinx Serialization as NBT
+
 ## Future features
 - **Interoperability**: Ability to interoperate with this NBT implementation to Minecraft NBT
-- **Kotlin Serialization**: Implementation of Kotlinx Serialization as NBT
 
 ## Minecraft NBT Overview
 
@@ -100,6 +101,25 @@ Simple overall usage
   val availableForWindows = available[0]
   val availableForLinux = available[1]
   val availableForMac = available[2]
+
+  // usage with Kotlinx Serialization
+  @Serializable
+  data class A(val value: Int, val value2: String)
+  
+  @Serializable
+  data class B(val a: A, val b: A)
+  
+  val a = A(1, "a")
+  val b = A(2, "b")
+  
+  val encoded = TagIO.encodeToBytes(B(a, b))
+  val decoded = TagIO.decodeFromBytes<B>(encoded)
+  
+  println(decoded) // B(a=A(value=1, value2="a"), b=A(value=2, value2="b"))
+  
+  // other encode functions
+  TagIO.encodeToStream(stream, a)
+  TagIO.encodeToFile(file, a)
 ```
 
 ## Creating a custom type
