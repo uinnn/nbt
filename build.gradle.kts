@@ -1,5 +1,6 @@
 plugins {
-  kotlin("jvm") version "2.0.0-Beta2"
+  kotlin("jvm") version "2.0.0-Beta4"
+  kotlin("plugin.serialization") version "2.0.0-Beta4"
   id("java")
 }
 
@@ -12,6 +13,8 @@ repositories {
 
 dependencies {
   implementation("it.unimi.dsi:fastutil:8.5.8")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2")
+  //implementation("org.openjdk.jol:jol-core:0.9")
 }
 
 kotlin {

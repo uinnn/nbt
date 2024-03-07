@@ -1,6 +1,7 @@
 package dream.nbt.io
 
 import dream.nbt.compression.*
+import it.unimi.dsi.fastutil.io.*
 import java.io.*
 
 /**
@@ -11,7 +12,7 @@ import java.io.*
 class TagDataOutputStream(
   stream: OutputStream,
   compressor: TagCompressor = GZIPTagCompressor,
-) : DataOutputStream(BufferedOutputStream(compressor.output(stream)))
+) : DataOutputStream(FastBufferedOutputStream(compressor.output(stream)))
 
 /**
  * Custom DataInputStream for reading NBT tags.
@@ -21,4 +22,4 @@ class TagDataOutputStream(
 class TagDataInputStream(
   stream: InputStream,
   compressor: TagCompressor = GZIPTagCompressor
-) : DataInputStream(BufferedInputStream(compressor.input(stream)))
+) : DataInputStream(FastBufferedInputStream(compressor.input(stream)))

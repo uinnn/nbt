@@ -1,5 +1,6 @@
 package dream.nbt
 
+import dream.nbt.compression.*
 import dream.nbt.io.*
 import it.unimi.dsi.fastutil.io.*
 import java.io.*
@@ -54,9 +55,9 @@ inline val Tag.id: Int
  * Extension function for converting a Tag to a ByteArray.
  * @return The ByteArray representation of the Tag.
  */
-fun Tag.toByteArray(): ByteArray {
+fun Tag.toByteArray(compressor: TagCompressor = GZIPTagCompressor): ByteArray {
   val stream = FastByteArrayOutputStream()
-  TagIO.write(stream, this)
+  TagIO.write(stream, this, compressor)
   return stream.array
 }
 
@@ -64,6 +65,6 @@ fun Tag.toByteArray(): ByteArray {
  * Extension function for decoding a Tag from a ByteArray.
  * @return The decoded Tag from the ByteArray.
  */
-fun ByteArray.decodeTag(): Tag {
-  return TagIO.read(FastByteArrayInputStream(this))
+fun ByteArray.decodeTag(compressor: TagCompressor = GZIPTagCompressor): Tag {
+  return TagIO.read(FastByteArrayInputStream(this), compressor)
 }

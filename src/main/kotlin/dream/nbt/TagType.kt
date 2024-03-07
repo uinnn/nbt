@@ -1,7 +1,7 @@
 package dream.nbt
 
+import dream.nbt.compression.*
 import dream.nbt.io.*
-import it.unimi.dsi.fastutil.io.*
 import java.io.*
 
 /**
@@ -28,10 +28,18 @@ abstract class TagType<T : Tag> {
   /**
    * Type-safe decoding a tag from a [ByteArray] into an instance of the associated tag.
    */
-  fun decode(bytes: ByteArray): T = TagIO.read(FastByteArrayInputStream(bytes)) as T
+  fun decode(bytes: ByteArray, compressor: TagCompressor = GZIPTagCompressor): T {
+    return TagIO.read(bytes, compressor) as T
+  }
   
   /**
    * Type-safe decoding a tag from a [ByteArray] into an instance of the associated tag or null.
    */
-  fun decodeOrNull(bytes: ByteArray): T? = TagIO.read(FastByteArrayInputStream(bytes)) as? T
+  fun decodeOrNull(bytes: ByteArray, compressor: TagCompressor = GZIPTagCompressor): T? {
+    return try {
+      decode(bytes, compressor)
+    } catch (e: Throwable) {
+      null
+    }
+  }
 }

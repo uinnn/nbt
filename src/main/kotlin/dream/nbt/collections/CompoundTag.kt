@@ -631,7 +631,7 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
   /**
    * Sets multiple boolean values at the specified key using a BooleanTag.
    */
-  fun set(key: String, vararg values: Boolean) {
+  fun setBooleans(key: String, vararg values: Boolean) {
     put(key, BooleanTag(*values))
   }
   
