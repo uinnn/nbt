@@ -14,11 +14,10 @@ The following presents an implementation of Named Binary Tag (NBT), drawing insp
   
 - **Compact Design**: A highly condensed structure, facilitating streamlined storage.
 
+- **Multiple Compression**: Various compressions formats. GZIP, ZIP, ZLIB.
+
 ## Future features
 - **Interoperability**: Ability to interoperate with this NBT implementation to Minecraft NBT
-- **Multiple Compression**: Various compressions formats. For now, only GZIP is supported
-- **Bits Types**: New types for other bits (24, 40, 48, 56)
-- **Conversor to Bytes**: Allow serializing/deserializing types directly to ByteArray easily
 - **Kotlin Serialization**: Implementation of Kotlinx Serialization as NBT
 
 ## Minecraft NBT Overview
@@ -52,7 +51,12 @@ In addition to the robust set provided by Minecraft, this implementation introdu
 7. **CharArray**: Incorporating a basic primitive char array type.
 8. **BooleanArray**: Adhering to a primitive boolean array type, storing boolean values as 1 boolean per byte.
 9. **PackedBooleanArray**: Presenting a primitive boolean array type with a storage approach of 8 booleans per byte.
-
+10. **UUID**: Simple UUID type
+11. **24 Bits**: An 24 bits (3 bytes) stored integer.
+12. **40 Bits**: An 40 bits (5 bytes) stored long.
+13. **48 Bits**: An 48 bits (6 bytes) stored long.
+14. **56 Bits**: An 56 bits (7 bytes) stored long.
+    
 ## Advantages Over Minecraft NBT Implementation
 
 ### Inline Classes
@@ -66,44 +70,7 @@ Optimization is achieved through buffering implementations to ByteArray. This no
 ### FastUtil
 Usage of fastutil collection types for maximum performance
 
-## In-Depth Exploration of New Types
-
-### Char
-
-A fundamental primitive char type, providing a concise representation.
-
-### Boolean
-
-A departure from conventional NBT boolean storage, leveraging bits for an impressive optimization that allows storing 8 boolean values in just 1 byte.
-
-### Set
-
-A tailored data structure akin to List but distinguished by its exclusion of duplicate elements, fostering data uniqueness.
-
-### ShortArray
-
-A straightforward representation of a primitive short array type, catering to specific numerical requirements.
-
-### FloatArray
-
-A rudimentary yet powerful representation of a primitive float array type, accommodating decimal precision.
-
-### DoubleArray
-
-A basic implementation of a primitive double array type, addressing scenarios requiring higher precision.
-
-### CharArray
-
-An incorporation of a primitive char array type, catering to textual data needs within the NBT framework.
-
-### BooleanArray
-
-A streamlined representation of a primitive boolean array type, allocating 1 byte for each boolean value.
-
-### PackedBooleanArray
-
-An innovative approach to boolean array storage, utilizing a compact representation with 8 booleans stored per byte.
-
+---
 ## Usage
 Simple overall usage
 ```kt
@@ -113,11 +80,7 @@ Simple overall usage
     set("Patch", 7)
     // multiple booleans
     set("Available", true, false, false)
-    set("Authors", tagList {
-      // will be improved in future versions
-      add("uin".toTag())
-      add("other".toTag())
-    })
+    set("Authors", tagListOf("uin", "other"))
   }
   
   // write
