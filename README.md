@@ -2,17 +2,17 @@
 
 ## Introduction
 
-The following presents an implementation of Named Binary Tag (NBT), drawing inspiration from Minecraft and developed using the Kotlin programming language.
+Enhanced Named Binary Tag implementation writen in Kotlin.
 
 ## Features
 
-- **Support for Varied Data Types**: Encompassing both primitive and complex data types.
+- **Support for Varied Data Types**: Primitive and complex types.
   
-- **Custom Type Creation**: Define and integrate custom data types seamlessly.
+- **Custom Type Creation**: Easily create new types as you need.
   
-- **Optimized Memory Utilization**: Minimizing memory footprint for efficient resource usage.
+- **Optimized Memory Utilization**: Uses specialized types to decrease memory usage.
   
-- **Compact Design**: A highly condensed structure, facilitating streamlined storage.
+- **Compact Design**: This is designed to be simple, so, is simple.
 
 - **Multiple Compression**: Various compressions formats. GZIP, ZIP, ZLIB.
 
@@ -23,7 +23,8 @@ The following presents an implementation of Named Binary Tag (NBT), drawing insp
 
 ## Minecraft NBT Overview
 
-The NBT system within Minecraft's is characterized by its simplicity, albeit lacking in optimization. Minecraft offers various NBT types, each serving distinct purposes:
+The Minecraft NBT is very nice for their use, perhaps some bad things, it fit in their purpose, but we can always made things better!
+Minecraft NBT overview:
 
 1. **Empty**
 2. **Byte**
@@ -41,18 +42,18 @@ The NBT system within Minecraft's is characterized by its simplicity, albeit lac
 
 ## Extended NBT Types
 
-In addition to the robust set provided by Minecraft, this implementation introduces eight supplementary NBT types, enhancing the versatility of the system:
+In addition to these previous NBT provided by Minecraft, this implementation introduces 14 new types:
 
-1. **Char**: Introducing a simple primitive char type.
-2. **Boolean**: Departing from Minecraft's approach, utilizing 1 byte for 8 boolean values through a bit-based strategy, optimizing storage efficiency.
-3. **Set**: Akin to a List but tailored to exclude duplicates.
-4. **ShortArray**: A straightforward primitive short array type.
-5. **FloatArray**: Embracing a rudimentary primitive float array type.
-6. **DoubleArray**: Enabling a basic primitive double array type.
-7. **CharArray**: Incorporating a basic primitive char array type.
-8. **BooleanArray**: Adhering to a primitive boolean array type, storing boolean values as 1 boolean per byte.
-9. **PackedBooleanArray**: Presenting a primitive boolean array type with a storage approach of 8 booleans per byte.
-10. **UUID**: Simple UUID type
+1. **Char**: Simple Char.
+2. **Boolean**: Minecraft uses a Byte Tag to store boolean, in this imlpementation, we use a Byte too, but, with support to get the 8 bits of the byte, making possible to store 8 boolean in one Boolean Tag. Optimizing this way 8x more memory
+3. **Set**: Equals to List, but without duplicates, of course.
+4. **ShortArray**: Simple ShortArray.
+5. **FloatArray**: Simple FloatArray.
+6. **DoubleArray**: Simple DoubleArray.
+7. **CharArray**: Simple CharArray.
+8. **BooleanArray**: Default BooleanArray Type. Stores 1 boolean per byte
+9. **PackedBooleanArray**: Packed BooleanArray Type. Stores up to 8 boolean per byte, similar to BitSet
+10. **UUID**: Simple UUID.
 11. **24 Bits**: An 24 bits (3 bytes) stored integer.
 12. **40 Bits**: An 40 bits (5 bytes) stored long.
 13. **48 Bits**: An 48 bits (6 bytes) stored long.
@@ -62,14 +63,15 @@ In addition to the robust set provided by Minecraft, this implementation introdu
 
 ### Inline Classes
 
-This NBT implementation leverages inline classes, ensuring minimal memory allocation by design, only resorting to allocation when deemed necessary.
+We use Kotlin inline classes, so no more extra memory allocation.
 
 ### Buffered Implementation
 
-Optimization is achieved through buffering implementations to ByteArray. This not only enhances overall performance but also synergizes with compression algorithms, culminating in a more efficient and compact representation.
+Arrays Type (ShortArray, IntArray, LongArray, etc...) is firstly buffered to ByteArray and them serialized, this enhances overall performance and makes the compression algorithms better.
 
 ### FastUtil
-Usage of fastutil collection types for maximum performance
+
+We use FastUtil collection types, enhancing more the performance.
 
 ---
 ## Usage
