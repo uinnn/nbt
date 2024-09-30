@@ -41,7 +41,7 @@ typealias Bit56Type = Bit56Tag.Type
 object TagTypes {
   
   // The registry to store tag types with their corresponding IDs
-  val registry = Byte2ObjectArrayMap<TagType<out Tag>>(22)
+  val registry = Byte2ObjectOpenHashMap<TagType<out Tag>>(22)
   
   // Initialize the registry by registering vanilla tag types
   init {
