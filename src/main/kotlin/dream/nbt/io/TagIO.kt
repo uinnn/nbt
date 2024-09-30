@@ -21,7 +21,7 @@ open class TagIO(val serializersModule: SerializersModule) {
    * @param input The input stream from which to read the tag.
    * @return The read [Tag] or [EmptyTag] if an error occurs.
    */
-  fun read(input: DataInputStream): Tag {
+  fun readRoot(input: DataInputStream): Tag {
     return try {
       TagTypes[input.readByte()].load(input)
     } catch (ex: Exception) {
@@ -38,8 +38,8 @@ open class TagIO(val serializersModule: SerializersModule) {
    * @param input The input stream from which to read the tag.
    * @return The read [Tag] or [EmptyTag] if an error occurs.
    */
-  fun read(input: InputStream, compressor: TagCompressor = GZIPTagCompressor): Tag {
-    return read(input.toNBTStream(compressor))
+  fun readStream(input: InputStream, compressor: TagCompressor = GZIPTagCompressor): Tag {
+    return readRoot(input.toNBTStream(compressor))
   }
   
   /**
@@ -48,8 +48,8 @@ open class TagIO(val serializersModule: SerializersModule) {
    * @param file The file from which to read the tag.
    * @return The read [Tag] or [EmptyTag] if an error occurs.
    */
-  fun read(file: File, compressor: TagCompressor = GZIPTagCompressor): Tag {
-    return read(file.inputStream(), compressor)
+  fun readFile(file: File, compressor: TagCompressor = GZIPTagCompressor): Tag {
+    return readStream(file.inputStream(), compressor)
   }
   
   /**
@@ -58,7 +58,7 @@ open class TagIO(val serializersModule: SerializersModule) {
    * @param output The output stream to which to write the tag.
    * @param value The tag to be written.
    */
-  fun write(output: DataOutputStream, value: Tag) {
+  fun writeRoot(output: DataOutputStream, value: Tag) {
     try {
       output.writeByte(value.id)
       value.write(output)
@@ -76,8 +76,8 @@ open class TagIO(val serializersModule: SerializersModule) {
    * @param output The output stream to which to write the tag.
    * @param value The tag to be written.
    */
-  fun write(output: OutputStream, value: Tag, compressor: TagCompressor = GZIPTagCompressor) {
-    write(output.toNBTStream(compressor), value)
+  fun writeStream(output: OutputStream, value: Tag, compressor: TagCompressor = GZIPTagCompressor) {
+    writeRoot(output.toNBTStream(compressor), value)
   }
   
   /**
@@ -86,8 +86,8 @@ open class TagIO(val serializersModule: SerializersModule) {
    * @param file The file to which to write the tag.
    * @param value The tag to be written.
    */
-  fun write(file: File, value: Tag, compressor: TagCompressor = GZIPTagCompressor) {
-    write(file.outputStream(), value, compressor)
+  fun writeFile(file: File, value: Tag, compressor: TagCompressor = GZIPTagCompressor) {
+    writeStream(file.outputStream(), value, compressor)
   }
   
   /**
@@ -96,8 +96,8 @@ open class TagIO(val serializersModule: SerializersModule) {
    * @param compressor The TagCompressor to use for decompression (default is GZIPTagCompressor).
    * @return The decoded Tag.
    */
-  fun read(bytes: ByteArray, compressor: TagCompressor = GZIPTagCompressor): Tag {
-    return read(FastByteArrayInputStream(bytes), compressor)
+  fun readBytes(bytes: ByteArray, compressor: TagCompressor = GZIPTagCompressor): Tag {
+    return readStream(FastByteArrayInputStream(bytes), compressor)
   }
   
   /**
@@ -213,28 +213,28 @@ fun InputStream.toNBTStream(compressor: TagCompressor = GZIPTagCompressor) =
  *
  * @param tag The tag to be written.
  */
-fun OutputStream.writeTag(tag: Tag, compressor: TagCompressor = GZIPTagCompressor) = TagIO.write(this, tag, compressor)
+fun OutputStream.writeTag(tag: Tag, compressor: TagCompressor = GZIPTagCompressor) = TagIO.writeStream(this, tag, compressor)
 
 /**
  * Writes a tag to the specified file.
  *
  * @param tag The tag to be written.
  */
-fun File.writeTag(tag: Tag, compressor: TagCompressor = GZIPTagCompressor) = TagIO.write(this, tag, compressor)
+fun File.writeTag(tag: Tag, compressor: TagCompressor = GZIPTagCompressor) = TagIO.writeFile(this, tag, compressor)
 
 /**
  * Reads a tag from the [InputStream].
  *
  * @return The read [Tag] or [EmptyTag] if an error occurs.
  */
-fun InputStream.readTag(compressor: TagCompressor = GZIPTagCompressor) = TagIO.read(this, compressor)
+fun InputStream.readTag(compressor: TagCompressor = GZIPTagCompressor) = TagIO.readStream(this, compressor)
 
 /**
  * Reads a tag from the specified file.
  *
  * @return The read [Tag] or [EmptyTag] if an error occurs.
  */
-fun File.readTag(compressor: TagCompressor = GZIPTagCompressor) = TagIO.read(this, compressor)
+fun File.readTag(compressor: TagCompressor = GZIPTagCompressor) = TagIO.readFile(this, compressor)
 
 /**
  * Inline function to encode a Tag of type [T] to an OutputStream using the specified serializer, value, and TagCompressor.
