@@ -21,7 +21,8 @@ typealias IntArrayType = IntArrayTag.Type
 typealias LongArrayType = LongArrayTag.Type
 typealias CharType = CharTag.Type
 typealias BooleanType = BooleanTag.Type
-typealias SetType = SetTag.Type
+typealias ArraySetType = ArraySetTag.Type
+typealias HashSetType = HashSetTag.Type
 typealias ShortArrayType = ShortArrayTag.Type
 typealias FloatArrayType = FloatArrayTag.Type
 typealias DoubleArrayType = DoubleArrayTag.Type
@@ -41,7 +42,7 @@ typealias Bit56Type = Bit56Tag.Type
 object TagTypes {
   
   // The registry to store tag types with their corresponding IDs
-  val registry = Byte2ObjectOpenHashMap<TagType<out Tag>>(22)
+  val registry = Byte2ObjectOpenHashMap<TagType<out Tag>>(23)
   
   // Initialize the registry by registering vanilla tag types
   init {
@@ -118,7 +119,7 @@ object TagTypes {
     // Custom types
     registerType(CharType)
     registerType(BooleanType)
-    registerType(SetType)
+    registerType(ArraySetType)
     registerType(ShortArrayType)
     registerType(FloatArrayType)
     registerType(DoubleArrayType)
@@ -130,5 +131,6 @@ object TagTypes {
     registerType(Bit40Type)
     registerType(Bit48Type)
     registerType(Bit56Type)
+    registerType(HashSetType)
   }
 }
