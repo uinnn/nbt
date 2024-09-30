@@ -189,7 +189,7 @@ fun Byte.unsetBit(bit: Int): Byte {
  */
 private fun BooleanArray.asByteCompacted(): Byte {
   var b: Byte = 0
-  for (i in 0 until size) {
+  for (i in 0 until size.coerceAtMost(8)) {
     if (this[i]) b = b or mask(i)
   }
   return b
