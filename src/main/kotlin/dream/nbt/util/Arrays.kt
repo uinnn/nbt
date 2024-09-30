@@ -8,7 +8,7 @@ import kotlin.experimental.*
  * @return The converted [ShortArray].
  */
 fun ByteArray.toShortArray(): ShortArray {
-  val buffer = ShortArray(size / 2)
+  val buffer = ShortArray(size shr 1)
   for ((index, i) in (indices step 2).withIndex()) {
     val v1 = this[i].toInt() and 0xFF
     val v2 = this[i + 1].toInt() and 0xFF
@@ -23,7 +23,7 @@ fun ByteArray.toShortArray(): ShortArray {
  * @return The converted [IntArray].
  */
 fun ByteArray.toIntArray(): IntArray {
-  val buffer = IntArray(size / 4)
+  val buffer = IntArray(size shr 2)
   for ((index, i) in (indices step 4).withIndex()) {
     val v1 = this[i].toInt() and 0xFF
     val v2 = this[i + 1].toInt() and 0xFF
@@ -40,7 +40,7 @@ fun ByteArray.toIntArray(): IntArray {
  * @return The converted [LongArray].
  */
 fun ByteArray.toLongArray(): LongArray {
-  val buffer = LongArray(size / 8)
+  val buffer = LongArray(size shr 3)
   for ((index, i) in (indices step 8).withIndex()) {
     val v1 = this[i].toLong() and 0xFF
     val v2 = this[i + 1].toLong() and 0xFF
@@ -63,7 +63,7 @@ fun ByteArray.toLongArray(): LongArray {
  * @return The converted [FloatArray].
  */
 fun ByteArray.toFloatArray(): FloatArray {
-  val buffer = FloatArray(size / 4)
+  val buffer = FloatArray(size shr 2)
   for ((index, i) in (indices step 4).withIndex()) {
     val bits = (this[i].toInt() and 0xFF) or
       ((this[i + 1].toInt() and 0xFF) shl 8) or
@@ -80,7 +80,7 @@ fun ByteArray.toFloatArray(): FloatArray {
  * @return The converted [DoubleArray].
  */
 fun ByteArray.toDoubleArray(): DoubleArray {
-  val buffer = DoubleArray(size / 8)
+  val buffer = DoubleArray(size shr 3)
   for ((index, i) in (indices step 8).withIndex()) {
     val bits = (this[i].toLong() and 0xFF) or
       ((this[i + 1].toLong() and 0xFF) shl 8) or
@@ -101,7 +101,7 @@ fun ByteArray.toDoubleArray(): DoubleArray {
  * @return The converted [CharArray].
  */
 fun ByteArray.toCharArray(): CharArray {
-  val buffer = CharArray(size / 2)
+  val buffer = CharArray(size shr 1)
   for ((index, i) in (indices step 2).withIndex()) {
     buffer[index] = (this[i].toInt() and 0xFF or (this[i + 1].toInt() and 0xFF shl 8)).toChar()
   }
@@ -123,10 +123,10 @@ fun ByteArray.toBooleanArray(): BooleanArray {
  * @return The converted packed [BooleanArray].
  */
 fun ByteArray.toPackedBooleanArray(): BooleanArray {
-  val booleanArray = BooleanArray(size * 8)
+  val booleanArray = BooleanArray(size shl 3)
   for (i in indices) {
     val byte = this[i]
-    val index = i * 8
+    val index = i shl 3
     for (j in 0 until 8) {
       booleanArray[index + j] = (byte and ((1 shl j).toByte()) != 0.toByte())
     }
@@ -140,10 +140,10 @@ fun ByteArray.toPackedBooleanArray(): BooleanArray {
  * @return The converted [ByteArray].
  */
 fun ShortArray.toByteArray(): ByteArray {
-  val buffer = ByteArray(size * 2)
+  val buffer = ByteArray(size shl 1)
   for (i in indices) {
     val value = this[i]
-    val index = i * 2
+    val index = i shl 1
     buffer[index] = (value.toInt() and 0xFF).toByte()
     buffer[index + 1] = ((value.toInt() shr 8) and 0xFF).toByte()
   }
@@ -156,10 +156,10 @@ fun ShortArray.toByteArray(): ByteArray {
  * @return The converted [ByteArray].
  */
 fun IntArray.toByteArray(): ByteArray {
-  val buffer = ByteArray(size * 4)
+  val buffer = ByteArray(size shl 2)
   for (i in indices) {
     val value = this[i]
-    val index = i * 4
+    val index = i shl 2
     buffer[index] = (value and 0xFF).toByte()
     buffer[index + 1] = ((value shr 8) and 0xFF).toByte()
     buffer[index + 2] = ((value shr 16) and 0xFF).toByte()
@@ -174,10 +174,10 @@ fun IntArray.toByteArray(): ByteArray {
  * @return The converted [ByteArray].
  */
 fun LongArray.toByteArray(): ByteArray {
-  val buffer = ByteArray(size * 8)
+  val buffer = ByteArray(size shl 3)
   for (i in indices) {
     val value = this[i]
-    val index = i * 8
+    val index = i shl 3
     buffer[index] = (value and 0xFF).toByte()
     buffer[index + 1] = ((value shr 8) and 0xFF).toByte()
     buffer[index + 2] = ((value shr 16) and 0xFF).toByte()
@@ -196,10 +196,10 @@ fun LongArray.toByteArray(): ByteArray {
  * @return The converted [ByteArray].
  */
 fun FloatArray.toByteArray(): ByteArray {
-  val buffer = ByteArray(size * 4)
+  val buffer = ByteArray(size shl 2)
   for (i in indices) {
     val bits = this[i].toBits()
-    val index = i * 4
+    val index = i shl 2
     buffer[index] = (bits and 0xFF).toByte()
     buffer[index + 1] = ((bits shr 8) and 0xFF).toByte()
     buffer[index + 2] = ((bits shr 16) and 0xFF).toByte()
@@ -214,10 +214,10 @@ fun FloatArray.toByteArray(): ByteArray {
  * @return The converted [ByteArray].
  */
 fun DoubleArray.toByteArray(): ByteArray {
-  val buffer = ByteArray(size * 8)
+  val buffer = ByteArray(size shl 3)
   for (i in indices) {
     val bits = this[i].toBits()
-    val index = i * 8
+    val index = i shl 3
     buffer[index] = (bits and 0xFF).toByte()
     buffer[index + 1] = ((bits shr 8) and 0xFF).toByte()
     buffer[index + 2] = ((bits shr 16) and 0xFF).toByte()
@@ -236,10 +236,10 @@ fun DoubleArray.toByteArray(): ByteArray {
  * @return The converted [ByteArray].
  */
 fun CharArray.toByteArray(): ByteArray {
-  val buffer = ByteArray(size * 2)
+  val buffer = ByteArray(size shl 1)
   for (i in indices) {
     val code = this[i].code
-    val index = i * 2
+    val index = i shl 1
     buffer[index] = (code and 0xFF).toByte()
     buffer[index + 1] = ((code shr 8) and 0xFF).toByte()
   }
@@ -261,14 +261,14 @@ fun BooleanArray.toByteArray(): ByteArray {
  * @return The converted packed [ByteArray].
  */
 fun BooleanArray.toPackedByteArray(): ByteArray {
-  val buffer = ByteArray(size / 8 + if (size % 8 != 0) 1 else 0)
+  val buffer = ByteArray(size shr 3 + if (size % 8 != 0) 1 else 0)
   var value = 0
   var bits = 0
   for (i in indices) {
     if (this[i]) value = value or (1 shl bits)
     bits++
     if (bits == 8 || i == this.size - 1) {
-      buffer[i / 8] = value.toByte()
+      buffer[i shr 3] = value.toByte()
       value = 0
       bits = 0
     }

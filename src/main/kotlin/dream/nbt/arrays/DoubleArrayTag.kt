@@ -31,7 +31,7 @@ value class DoubleArrayTag(val value: DoubleArray) : ArrayTag, DoubleIterable {
    * @param data The data output stream.
    */
   override fun write(data: DataOutput) {
-    data.writeVarInt(size * 8)
+    data.writeVarInt(size shl 3)
     data.write(value.toByteArray())
   }
   

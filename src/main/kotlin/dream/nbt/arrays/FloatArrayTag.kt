@@ -31,7 +31,7 @@ value class FloatArrayTag(val value: FloatArray) : ArrayTag, FloatIterable {
    * @param data The data output stream.
    */
   override fun write(data: DataOutput) {
-    data.writeVarInt(size * 4)
+    data.writeVarInt(size shl 2)
     data.write(value.toByteArray())
   }
   

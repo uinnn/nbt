@@ -31,7 +31,7 @@ value class ShortArrayTag(val value: ShortArray) : ArrayTag, ShortIterable {
    * @param data The data output stream.
    */
   override fun write(data: DataOutput) {
-    data.writeVarInt(size * 2)
+    data.writeVarInt(size shl 1)
     data.write(value.toByteArray())
   }
   

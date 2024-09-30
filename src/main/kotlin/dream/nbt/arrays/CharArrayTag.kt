@@ -31,7 +31,7 @@ value class CharArrayTag(val value: CharArray) : ArrayTag, CharIterable {
    * @param data The data output stream.
    */
   override fun write(data: DataOutput) {
-    data.writeVarInt(size * 2)
+    data.writeVarInt(size shl 1)
     data.write(value.toByteArray())
   }
   
