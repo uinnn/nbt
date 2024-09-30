@@ -14,6 +14,7 @@ repositories {
 dependencies {
   implementation("it.unimi.dsi:fastutil:8.5.13")
   implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3")
+  implementation("com.github.luben:zstd-jni:1.5.6-6")
 }
 
 kotlin {
