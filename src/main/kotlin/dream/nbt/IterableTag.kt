@@ -1,10 +1,10 @@
 package dream.nbt
 
 /**
- * An interface representing a tag that holds an array of elements.
+ * An interface representing a tag that holds an iterable of elements.
  * Extends the [Tag] interface.
  */
-interface ArrayTag : Tag {
+interface IterableTag : Tag {
   
   /**
    * Gets the size of the array.
