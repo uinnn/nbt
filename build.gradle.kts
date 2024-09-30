@@ -1,6 +1,6 @@
 plugins {
-  kotlin("jvm") version "2.0.0-Beta4"
-  kotlin("plugin.serialization") version "2.0.0-Beta4"
+  kotlin("jvm") version "2.0.20"
+  kotlin("plugin.serialization") version "2.0.20"
   id("java")
 }
 
@@ -12,17 +12,11 @@ repositories {
 }
 
 dependencies {
-  implementation("it.unimi.dsi:fastutil:8.5.8")
-  implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.6.2")
-  //implementation("org.openjdk.jol:jol-core:0.9")
+  implementation("it.unimi.dsi:fastutil:8.5.13")
+  implementation("org.jetbrains.kotlinx:kotlinx-serialization-core:1.7.3")
 }
 
 kotlin {
-  sourceSets.all {
-    languageSettings {
-      languageVersion = "2.0"
-    }
-  }
   jvmToolchain(8)
 }
 
