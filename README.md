@@ -14,12 +14,13 @@ Enhanced Named Binary Tag implementation writen in Kotlin.
   
 - **Compact Design**: This is designed to be simple, so, is simple.
 
-- **Multiple Compression**: Various compressions formats. GZIP, ZIP, ZLIB.
+- **Multiple Compression**: Various compressions formats. GZIP, ZIP, ZLIB, ZSTD, NONE.
 
    **Kotlin Serialization**: Implementation of Kotlinx Serialization as NBT
 
 ## Future features
 - **Interoperability**: Ability to interoperate with this NBT implementation to Minecraft NBT
+- **SNBT Support**: Support for SNBT (Stringified Named Binary Tag)
 
 ## Minecraft NBT Overview
 
@@ -46,18 +47,19 @@ In addition to these previous NBT provided by Minecraft, this implementation int
 
 1. **Char**: Simple Char.
 2. **Boolean**: Minecraft uses a Byte Tag to store boolean, in this imlpementation, we use a Byte too, but, with support to get the 8 bits of the byte, making possible to store 8 boolean in one Boolean Tag. Optimizing this way 8x more memory
-3. **Set**: Equals to List, but without duplicates, of course.
-4. **ShortArray**: Simple ShortArray.
-5. **FloatArray**: Simple FloatArray.
-6. **DoubleArray**: Simple DoubleArray.
-7. **CharArray**: Simple CharArray.
-8. **BooleanArray**: Default BooleanArray Type. Stores 1 boolean per byte
-9. **PackedBooleanArray**: Packed BooleanArray Type. Stores up to 8 boolean per byte, similar to BitSet
-10. **UUID**: Simple UUID.
-11. **24 Bits**: An 24 bits (3 bytes) stored integer.
-12. **40 Bits**: An 40 bits (5 bytes) stored long.
-13. **48 Bits**: An 48 bits (6 bytes) stored long.
-14. **56 Bits**: An 56 bits (7 bytes) stored long.
+3. **ArraySet**: A Set implementation using an array.
+4. **HashSet**: A Set implementation using hashes
+5. **ShortArray**: Simple ShortArray.
+6. **FloatArray**: Simple FloatArray.
+7. **DoubleArray**: Simple DoubleArray.
+8. **CharArray**: Simple CharArray.
+9. **BooleanArray**: Default BooleanArray Type. Stores 1 boolean per byte
+10. **PackedBooleanArray**: Packed BooleanArray Type. Stores up to 8 boolean per byte, similar to BitSet
+11. **UUID**: Simple UUID.
+12. **24 Bits**: An 24 bits (3 bytes) stored integer.
+13. **40 Bits**: An 40 bits (5 bytes) stored long.
+14. **48 Bits**: An 48 bits (6 bytes) stored long.
+15. **56 Bits**: An 56 bits (7 bytes) stored long.
     
 ## Advantages Over Minecraft NBT Implementation
 
@@ -87,12 +89,12 @@ Simple overall usage
   }
   
   // write
-  TagIO.write(stream, compound)
-  TagIO.write(file, compound)
+  TagIO.writeStream(stream, compound)
+  TagIO.writeFile(file, compound)
   
   // read
-  val loaded = TagIO.read(stream)
-  val loaded = TagIO.read(file)
+  val loaded = TagIO.readStream(stream)
+  val loaded = TagIO.readFile(file)
   
   val name = compound.string("Name")
   val version = compound.string("Version", default = "1.0")
@@ -145,7 +147,7 @@ value class UUIDTag(val value: UUID) : Tag {
   
   // creates a copy of the tag, in some cases this can be useful
   // but not for this example
-  override fun copy(): UUIDTag = UUIDTag(value)
+  override fun copy(): UUIDTag = this
   
   override fun toString() = value.toString()
   
