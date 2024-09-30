@@ -32,7 +32,7 @@ value class PackedBooleanArrayTag(val value: BooleanArray) : ArrayTag, BooleanIt
    * @param data The data output stream.
    */
   override fun write(data: DataOutput) {
-    data.writeVarInt(size / 8)
+    data.writeVarInt(size shr 3)
     data.write(value.toPackedByteArray())
   }
   

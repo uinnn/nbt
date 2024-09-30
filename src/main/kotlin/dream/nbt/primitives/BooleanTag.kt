@@ -34,29 +34,18 @@ value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
   /**
    * Constructor to create a BooleanTag from multiple boolean values.
    */
-  constructor(value1: Boolean, value2: Boolean) : this(0) {
-    set(1, value1)
-    set(2, value2)
-  }
+  constructor(value1: Boolean, value2: Boolean) : this(0.toByte().toggleBit(1, value1).toggleBit(2, value2))
   
   /**
    * Constructor to create a BooleanTag from multiple boolean values.
    */
-  constructor(value1: Boolean, value2: Boolean, value3: Boolean) : this(0) {
-    set(1, value1)
-    set(2, value2)
-    set(3, value3)
-  }
+  constructor(value1: Boolean, value2: Boolean, value3: Boolean) :
+    this(0.toByte().toggleBit(1, value1).toggleBit(2, value2).toggleBit(3, value3))
   
   /**
    * Constructor to create a BooleanTag from multiple boolean values.
    */
-  constructor(vararg values: Boolean) : this(0) {
-    for (i in 0 until 8) {
-      if (i >= values.size) break
-      set(i, values[i])
-    }
-  }
+  constructor(vararg values: Boolean) : this(values.asByteCompacted())
   
   /**
    * Writes the boolean tag data to the specified [DataOutput].
@@ -82,8 +71,7 @@ value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
    * @param value The boolean value to set.
    * @return A new BooleanTag with the updated value.
    */
-  fun set(bit: Int, value: Boolean) =
-    BooleanTag(if (value) raw or mask(bit) else raw and mask(bit).inv())
+  fun set(bit: Int, value: Boolean) = BooleanTag(raw.toggleBit(bit, value))
   
   /**
    * Converts the boolean tag to a Number.
@@ -136,14 +124,6 @@ value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
   override fun compareTo(other: BooleanTag) = raw.compareTo(other.raw)
   
   /**
-   * Generates a bitmask for the specified bit.
-   *
-   * @param v The bit index.
-   * @return The bitmask for the specified bit.
-   */
-  private fun mask(v: Int): Byte = (1 shl v).toByte()
-  
-  /**
    * TagType for BooleanTag.
    */
   object Type : TagType<BooleanTag>() {
@@ -169,3 +149,56 @@ value class BooleanTag(val raw: Byte) : NumberTag, Comparable<BooleanTag> {
 
 
 fun Boolean.toTag() = BooleanTag(this)
+fun Byte.toBooleanTag() = BooleanTag(this)
+
+/**
+ * Toggle the specified bit in the byte to the specified value.
+ *
+ * @param bit The bit index.
+ * @param value The boolean value to set.
+ * @return The updated byte value.
+ */
+fun Byte.toggleBit(bit: Int, value: Boolean): Byte {
+  return if (value) this or mask(bit) else this and mask(bit).inv()
+}
+
+/**
+ * Sets the specified bit in the byte to true (1).
+ *
+ * @param bit The bit index.
+ * @return The updated byte value.
+ */
+fun Byte.setBit(bit: Int): Byte {
+  return this or mask(bit)
+}
+
+/**
+ * Sets the specified bit in the byte to false (0).
+ *
+ * @param bit The bit index.
+ * @return The updated byte value.
+ */
+fun Byte.unsetBit(bit: Int): Byte {
+  return this and mask(bit).inv()
+}
+
+/**
+ * Compacts the boolean array into a single byte.
+ *
+ * @return The compacted byte.
+ */
+private fun BooleanArray.asByteCompacted(): Byte {
+  var b: Byte = 0
+  for (i in 0 until size) {
+    if (this[i]) b = b or mask(i)
+  }
+  return b
+}
+
+/**
+ * Generates a bitmask for the specified bit.
+ *
+ * @param v The bit index.
+ * @return The bitmask for the specified bit.
+ */
+private fun mask(v: Int): Byte = (1 shl v).toByte()

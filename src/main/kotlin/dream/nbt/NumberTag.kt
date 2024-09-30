@@ -6,6 +6,8 @@ package dream.nbt
  */
 interface NumberTag : Tag {
   
+  override val genericValue: Number
+  
   /**
    * Converts the tag value to a generic [Number].
    *
