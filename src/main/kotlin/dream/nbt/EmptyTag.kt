@@ -34,7 +34,7 @@ object EmptyTag : Tag {
    *
    * @return The string representation of the empty tag.
    */
-  override fun toString() = "EmptyTag()"
+  override fun toString() = "EmptyTag"
   
   /**
    * The type of the empty tag.
@@ -48,6 +48,10 @@ object EmptyTag : Tag {
      * @return The [EmptyTag] instance.
      */
     override fun load(data: DataInput): EmptyTag {
+      return EmptyTag
+    }
+    
+    override fun load(data: String): EmptyTag {
       return EmptyTag
     }
   }

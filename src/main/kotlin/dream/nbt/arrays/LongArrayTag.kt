@@ -11,7 +11,7 @@ import java.io.*
  * @param value The long array value.
  */
 @JvmInline
-value class LongArrayTag(val value: LongArray) : ArrayTag, LongIterable {
+value class LongArrayTag(val value: LongArray) : IterableTag, LongIterable {
   
   override val genericValue get() = value
   

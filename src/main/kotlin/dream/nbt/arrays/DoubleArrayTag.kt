@@ -11,7 +11,7 @@ import java.io.*
  * @param value The double array value.
  */
 @JvmInline
-value class DoubleArrayTag(val value: DoubleArray) : ArrayTag, DoubleIterable {
+value class DoubleArrayTag(val value: DoubleArray) : IterableTag, DoubleIterable {
   
   override val genericValue get() = value
   

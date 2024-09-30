@@ -11,7 +11,7 @@ import java.io.*
  * @param value The float array value.
  */
 @JvmInline
-value class FloatArrayTag(val value: FloatArray) : ArrayTag, FloatIterable {
+value class FloatArrayTag(val value: FloatArray) : IterableTag, FloatIterable {
   
   override val genericValue get() = value
   

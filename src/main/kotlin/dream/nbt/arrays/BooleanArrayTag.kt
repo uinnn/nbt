@@ -12,7 +12,7 @@ import java.io.*
  * @param value The boolean array value.
  */
 @JvmInline
-value class BooleanArrayTag(val value: BooleanArray) : ArrayTag, BooleanIterable {
+value class BooleanArrayTag(val value: BooleanArray) : IterableTag, BooleanIterable {
   
   override val genericValue get() = value
   

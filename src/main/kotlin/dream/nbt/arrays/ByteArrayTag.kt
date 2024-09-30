@@ -11,7 +11,7 @@ import java.io.*
  * @param value The byte array value.
  */
 @JvmInline
-value class ByteArrayTag(val value: ByteArray) : ArrayTag, ByteIterable {
+value class ByteArrayTag(val value: ByteArray) : IterableTag, ByteIterable {
   
   override val genericValue get() = value
   

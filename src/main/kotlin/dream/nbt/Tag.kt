@@ -33,6 +33,11 @@ interface Tag {
    * @return A new instance of the tag with the same type and data.
    */
   fun copy(): Tag
+  
+  /**
+   * Stringify this tag as SNBT.
+   */
+  fun stringify(): String = toString()
 }
 
 /**
@@ -57,7 +62,7 @@ inline val Tag.id: Int
  */
 fun Tag.toByteArray(compressor: TagCompressor = GZIPTagCompressor): ByteArray {
   val stream = FastByteArrayOutputStream()
-  TagIO.write(stream, this, compressor)
+  TagIO.writeStream(stream, this, compressor)
   return stream.array
 }
 
@@ -66,5 +71,5 @@ fun Tag.toByteArray(compressor: TagCompressor = GZIPTagCompressor): ByteArray {
  * @return The decoded Tag from the ByteArray.
  */
 fun ByteArray.decodeTag(compressor: TagCompressor = GZIPTagCompressor): Tag {
-  return TagIO.read(FastByteArrayInputStream(this), compressor)
+  return TagIO.readStream(FastByteArrayInputStream(this), compressor)
 }

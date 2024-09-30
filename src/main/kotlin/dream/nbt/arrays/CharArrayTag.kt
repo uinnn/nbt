@@ -11,7 +11,7 @@ import java.io.*
  * @param value The char array value.
  */
 @JvmInline
-value class CharArrayTag(val value: CharArray) : ArrayTag, CharIterable {
+value class CharArrayTag(val value: CharArray) : IterableTag, CharIterable {
   
   override val genericValue get() = value
   

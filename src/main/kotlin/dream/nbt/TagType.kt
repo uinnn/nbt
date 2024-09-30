@@ -26,10 +26,15 @@ abstract class TagType<T : Tag> {
   abstract fun load(data: DataInput): T
   
   /**
+   * Loads a tag from the specified [String] and creates an instance of the associated tag.
+   */
+  open fun load(data: String): T = throw UnsupportedOperationException("Tag ($id) not supports SNBT stringification")
+  
+  /**
    * Type-safe decoding a tag from a [ByteArray] into an instance of the associated tag.
    */
   fun decode(bytes: ByteArray, compressor: TagCompressor = GZIPTagCompressor): T {
-    return TagIO.read(bytes, compressor) as T
+    return TagIO.readBytes(bytes, compressor) as T
   }
   
   /**

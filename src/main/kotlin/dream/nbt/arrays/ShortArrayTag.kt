@@ -11,7 +11,7 @@ import java.io.*
  * @param value The short array value.
  */
 @JvmInline
-value class ShortArrayTag(val value: ShortArray) : ArrayTag, ShortIterable {
+value class ShortArrayTag(val value: ShortArray) : IterableTag, ShortIterable {
   
   override val genericValue get() = value
   

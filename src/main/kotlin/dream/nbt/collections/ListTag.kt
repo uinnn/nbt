@@ -5,6 +5,7 @@ import dream.nbt.primitives.*
 import dream.nbt.util.*
 import it.unimi.dsi.fastutil.objects.*
 import java.io.*
+import java.util.RandomAccess
 import kotlin.contracts.*
 
 /**
@@ -14,7 +15,7 @@ import kotlin.contracts.*
  * @property value The underlying list of tags.
  */
 @JvmInline
-value class ListTag<T : Tag>(val value: ObjectArrayList<T>) : MutableList<T> by value, ArrayTag {
+value class ListTag<T : Tag>(val value: ObjectArrayList<T>) : MutableList<T> by value, IterableTag, RandomAccess {
   
   override val genericValue get() = value
   
