@@ -124,7 +124,7 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
    * @param key The key.
    * @return The tag of type [T].
    */
-  private inline fun <reified T : Tag> getTag(key: String): T {
+  inline fun <reified T : Tag> getTag(key: String): T {
     val tag = get(key) ?: tagNotFound(key)
     return tag as T
   }
@@ -135,7 +135,7 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
    * @param key The key.
    * @return The tag of type [T] or null.
    */
-  private inline fun <reified T : Tag> getTagOrNull(key: String): T? {
+  inline fun <reified T : Tag> getTagOrNull(key: String): T? {
     return get(key) as? T
   }
   
@@ -146,13 +146,14 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
    * @param value A function to create the new tag if not found.
    * @return The tag of type [T].
    */
-  private inline fun <reified T : Tag> getOrAdd(key: String, value: (CompoundTag) -> T): T {
-    return if (key in this) {
-      get(key) as T
+  inline fun <reified T : Tag> getOrAdd(key: String, value: (CompoundTag) -> T): T {
+    val present = get(key)
+    if (present != null) {
+      return present as T
     } else {
       val tag = value(this)
       put(key, tag)
-      tag
+      return tag
     }
   }
   
@@ -196,9 +197,9 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
   fun isNumber(key: String): Boolean = get(key) is NumberTag
   
   /**
-   * Checks if the tag type present of the given key is an [ArrayTag].
+   * Checks if the tag type present of the given key is an [IterableTag].
    */
-  fun isArray(key: String): Boolean = get(key) is ArrayTag
+  fun isArray(key: String): Boolean = get(key) is IterableTag
   
   /**
    * Gets a number from the compound tag.
@@ -419,16 +420,30 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
   }
   
   /**
-   * Gets a set from the compound tag.
+   * Gets a array set from the compound tag.
    */
-  fun <T : Tag> getSet(key: String, default: SetTag<T>? = null): SetTag<T> {
-    return getTagOrNull(key) ?: return default ?: SetTag()
+  fun <T : Tag> getArraySet(key: String, default: ArraySetTag<T>? = null): ArraySetTag<T> {
+    return getTagOrNull(key) ?: return default ?: ArraySetTag()
   }
   
   /**
-   * Gets a set from the compound tag or returns null if not found.
+   * Gets a array set from the compound tag or returns null if not found.
    */
-  fun <T : Tag> getSetOrNull(key: String): SetTag<T>? {
+  fun <T : Tag> getArraySetOrNull(key: String): ArraySetTag<T>? {
+    return getTagOrNull(key)
+  }
+  
+  /**
+   * Gets a hash set from the compound tag.
+   */
+  fun <T : Tag> getHashSet(key: String, default: HashSetTag<T>? = null): HashSetTag<T> {
+    return getTagOrNull(key) ?: return default ?: HashSetTag()
+  }
+  
+  /**
+   * Gets a hash set from the compound tag or returns null if not found.
+   */
+  fun <T : Tag> getHashSetOrNull(key: String): HashSetTag<T>? {
     return getTagOrNull(key)
   }
   
@@ -782,7 +797,6 @@ value class CompoundTag(val value: Object2ObjectOpenHashMap<String, Tag>) : Muta
  * @return The empty CompoundTag.
  */
 fun compoundOf() = CompoundTag()
-
 
 /**
  * Creates a CompoundTag with the specified entries.
