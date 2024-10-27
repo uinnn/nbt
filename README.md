@@ -16,7 +16,7 @@ Enhanced Named Binary Tag implementation writen in Kotlin.
 
 - **Multiple Compression**: Various compressions formats. GZIP, ZIP, ZLIB, ZSTD, NONE.
 
-   **Kotlin Serialization**: Implementation of Kotlinx Serialization as NBT
+-   **Kotlin Serialization**: Implementation of Kotlinx Serialization as NBT
 
 ## Future features
 - **Interoperability**: Ability to interoperate with this NBT implementation to Minecraft NBT
@@ -43,10 +43,10 @@ Minecraft NBT overview:
 
 ## Extended NBT Types
 
-In addition to these previous NBT provided by Minecraft, this implementation introduces 14 new types:
+In addition to these previous NBT provided by Minecraft, this implementation introduces 15 new types:
 
 1. **Char**: Simple Char.
-2. **Boolean**: Minecraft uses a Byte Tag to store boolean, in this imlpementation, we use a Byte too, but, with support to get the 8 bits of the byte, making possible to store 8 boolean in one Boolean Tag. Optimizing this way 8x more memory
+2. **Boolean**: Minecraft uses a Byte Tag to store boolean, in this implementation, we use a Byte too, but, with support to get the 8 bits of the byte, making possible to store 8 boolean in one Boolean Tag. Optimizing this way 8x more memory
 3. **ArraySet**: A Set implementation using an array.
 4. **HashSet**: A Set implementation using hashes
 5. **ShortArray**: Simple ShortArray.
