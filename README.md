@@ -22,6 +22,18 @@ Enhanced Named Binary Tag implementation writen in Kotlin.
 - **Interoperability**: Ability to interoperate with this NBT implementation to Minecraft NBT
 - **SNBT Support**: Support for SNBT (Stringified Named Binary Tag)
 
+## How to use
+NBT is stored in jitpack repository, so all you need is here:
+```gradle
+repositories {
+  maven("https://jitpack.io")
+}
+
+dependencies {
+  implementation("com.github.uinnn:nbt:1.0.1")
+}
+```
+
 ## Minecraft NBT Overview
 
 The Minecraft NBT is very nice for their use, perhaps some bad things, it fit in their purpose, but we can always made things better!
